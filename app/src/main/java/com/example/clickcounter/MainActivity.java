@@ -2,6 +2,7 @@ package com.example.clickcounter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.ImageFormat;
 import android.os.Bundle;
@@ -19,11 +20,13 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonMinusz;
     private TextView TextViewOut;
     private int szam;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
+
 
         TextViewOut.setText("0");
         TextViewOut.setTextColor(Color.BLUE);
@@ -38,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
         TextViewOut.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -46,16 +50,22 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (szam > 0) {
-                    TextViewOut.setTextColor(Color.GREEN);
+
+                if (Prime(szam) && szam > 1) {
+                    TextViewOut.setTextColor(Color.rgb(255,250,250));
+                }else if (szam > 0) {
+                    TextViewOut.setTextColor(getResources().getColor(R.color.zold));
 
                 } else if (szam < 0) {
-                    TextViewOut.setTextColor(Color.RED);
+                    TextViewOut.setTextColor(Color.parseColor("#880808"));
 
-                } else {
+                }
+                else {
                     TextViewOut.setTextColor(Color.BLUE);
 
                 }
+
+
             }
 
             @Override
@@ -80,6 +90,17 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+    public boolean Prime(int szam) {
+        boolean prime_e = true;
+        if (szam > 1) {
+            for (int i = 2; i <= szam / 2; ++i) {
+                if (szam % i == 0) {
+                    return prime_e = false;
+                }
+            }
+        }
+        return  prime_e = true;
     }
     private void init() {
         buttonPlussz = findViewById(R.id.buttonPlussz);
