@@ -1,5 +1,6 @@
 package com.example.clickcounter;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.res.ColorStateList;
@@ -20,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonMinusz;
     private TextView TextViewOut;
     private int szam;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
 
         TextViewOut.addTextChangedListener(new TextWatcher() {
             @Override
@@ -64,8 +65,6 @@ public class MainActivity extends AppCompatActivity {
                     TextViewOut.setTextColor(Color.BLUE);
 
                 }
-
-
             }
 
             @Override
@@ -91,6 +90,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putInt("szamment", szam);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        szam = savedInstanceState.getInt("szamment");
+        TextViewOut.setText(String.valueOf(szam));
+    }
+
     public boolean Prime(int szam) {
         boolean prime_e = true;
         if (szam > 1) {
