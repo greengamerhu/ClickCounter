@@ -27,13 +27,16 @@ public class MainActivity extends AppCompatActivity {
 
         TextViewOut.setText("0");
         TextViewOut.setTextColor(Color.BLUE);
-        TextViewOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TextViewOut.setText("0");
-                TextViewOut.setTextColor(Color.BLUE);
-            }
 
+        TextViewOut.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                szam = 0;
+                TextViewOut.setText(String.valueOf(szam));
+
+                return true;
+
+            }
         });
         TextViewOut.addTextChangedListener(new TextWatcher() {
             @Override
